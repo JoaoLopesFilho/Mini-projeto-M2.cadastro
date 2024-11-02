@@ -1,12 +1,13 @@
 body{
     background-color: rgb(0, 10, 3);
     color: rgb(1, 185, 1);
-    padding: 25px;
+    padding: 5px;
 }
 
-#infoNpc{
+.container{
   display: flex;
   flex-flow:column;
-
   
+  
+
 }
