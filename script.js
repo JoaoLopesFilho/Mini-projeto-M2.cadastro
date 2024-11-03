@@ -14,14 +14,14 @@ class NPC{
     }
 }
 
-exibirNPC() {
+exibirNPC();{
     spans[0].innerText = this.nomeNPC
     spans[1].innerText = this.idadeNPC
     spans[2].innerText = this.localNPC
-}
+};
 
-btn.addEventListener("click", ()=> {
-    const NPC0 = new NPC(
-        .value,
-    )
-})
+// btn.addEventListener("click", ()=> {
+//     const NPC0 = new NPC(
+//         .value,
+//     )
+// })
