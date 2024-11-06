@@ -9,7 +9,7 @@ body{
     background-image: url('https://s3.amazonaws.com/media.thecrimson.com/photos/2019/11/18/215525_1341073.gif'); /* Caminho do seu GIF */
     background-size: 48%;              
     background-position: center;
-    background-attachment: fixed;                         
+    background-attachment: none;                         
     height: 100%; 
     backdrop-filter: blur(2.0px);  
     /* overflow: hidden; some com a barra de rolagem */
@@ -24,6 +24,10 @@ body{
   height: 100vh;
 }
 
+h1{
+  font-size: 40px;
+}
+
 .container{
   display: flex;
   flex-direction: column;
@@ -31,3 +35,12 @@ body{
   align-items: center;
 }
 
+.resultado{
+  display:flex;
+  flex-direction: column;
+} 
+
+.npc{
+  
+
+}
