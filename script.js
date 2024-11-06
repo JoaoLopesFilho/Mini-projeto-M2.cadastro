@@ -1,64 +1,104 @@
 
-// elementos capturados 
-const infoNpc= {
+const infoNpc = {
     nome: document.getElementById("nomeNpc"),
-    Idade: document.getElementById("idadeNpc"),
+    idade: document.getElementById("idadeNpc"),
     localizacao: document.getElementById("localNpc"),
-}
+};
 const botao = document.getElementById("botao");
-const spans = document.querySelectorAll(".span");
-const resultado = document.querySelector(".resultado")
+const resultado = document.querySelector(".resultado");
 
-
-// modelo criado 
+// Modelo criado 
 class NPC {
-    constructor(nome, idade, localizacao){
-        this.nome=nome;
-        this.idade=idade;
-        this.localizacao=localizacao;
+    constructor(nome, idade, localizacao) {
+        this.nome = nome;
+        this.idade = idade;
+        this.localizacao = localizacao;
     }
 
-    exibirNPC(){
-        // spans[0].innerText = this.nome
-        // spans[1].innerText = this.idade
-        // spans[2].innerText = this.localizacao
-
+    exibirNPC() {
         const npcDiv = document.createElement("div");
         npcDiv.classList.add("npc");
 
         const nomeSpan = document.createElement("span");
-        nomeSpan.innerText = `nome: ${this.nome}`;
+        nomeSpan.innerText = `Nome: ${this.nome}`;
 
         const idadeSpan = document.createElement("span");
-        idadeSpan.innerText = `idade: ${this.idade}`;
-       
-        const localizacaoSpan = document.createElement("span");
-        localizacaoSpan.innerText = `localizacao: ${this.localizacao}`;
+        idadeSpan.innerText = `Idade: ${this.idade}`;
 
+        const localizacaoSpan = document.createElement("span");
+        localizacaoSpan.innerText = `Localização: ${this.localizacao}`;
+
+        // Botão de Editar
+        const editarBtn = document.createElement("button");
+        editarBtn.innerText = "Editar";
+        editarBtn.addEventListener("click", () => this.editarNPC(npcDiv));
+
+        // Botão de Excluir
+        const excluirBtn = document.createElement("button");
+        excluirBtn.innerText = "Excluir";
+        excluirBtn.addEventListener("click", () => npcDiv.remove());
+
+        // Adicionando elementos ao contêiner do NPC
         npcDiv.appendChild(nomeSpan);
         npcDiv.appendChild(idadeSpan);
         npcDiv.appendChild(localizacaoSpan);
+        npcDiv.appendChild(editarBtn);
+        npcDiv.appendChild(excluirBtn);
 
         return npcDiv;
-    };
+    }
 
+    // Função de edição
+    editarNPC(npcDiv) {
+        // Preenche os campos com as informações do NPC
+        infoNpc.nome.value = this.nome;
+        infoNpc.idade.value = this.idade;
+        infoNpc.localizacao.value = this.localizacao;
+
+        // Altera o texto do botão para "Salvar" e remove eventos anteriores
+        botao.innerText = "Salvar";
+        botao.removeEventListener("click", adicionarNPC);
+
+        // Adiciona o evento de salvar o NPC editado
+        const salvarEdicao = () => {
+            this.nome = infoNpc.nome.value;
+            this.idade = infoNpc.idade.value;
+            this.localizacao = infoNpc.localizacao.value;
+
+            // Atualiza os spans com os novos valores
+            npcDiv.querySelector("span:nth-child(1)").innerText = `Nome: ${this.nome}`;
+            npcDiv.querySelector("span:nth-child(3)").innerText = `Idade: ${this.idade}`;
+            npcDiv.querySelector("span:nth-child(5)").innerText = `Localização: ${this.localizacao}`;
+
+            // Restaura o botão para criação de novos NPCs
+            botao.innerText = "Criar NPC";
+            botao.removeEventListener("click", salvarEdicao); // Remove o evento de salvar
+            botao.addEventListener("click", adicionarNPC);     // Restaura o evento de adicionar NPC
+
+            // Limpa os campos de entrada
+            infoNpc.nome.value = '';
+            infoNpc.idade.value = '';
+            infoNpc.localizacao.value = '';
+        };
+
+        botao.addEventListener("click", salvarEdicao);
+    }
 }
 
-
-
-
-//criando o evento de cliclk
-botao.addEventListener("click", () => {
-
-    //fazendo a instancia do novo npc
-    const NPC1 = new NPC(
+// Função para adicionar NPC ao contêiner
+function adicionarNPC() {
+    const novoNPC = new NPC(
         infoNpc.nome.value,
-        infoNpc.Idade.value,
-        infoNpc.localizacao.value,
+        infoNpc.idade.value,
+        infoNpc.localizacao.value
     );
-    console.log(infoNpc.localizacao.value);
 
-    resultado.appendChild(NPC1.exibirNPC());
+    resultado.appendChild(novoNPC.exibirNPC());
 
-});
+    infoNpc.nome.value = '';
+    infoNpc.idade.value = '';
+    infoNpc.localizacao.value = '';
+}
 
+// Evento de clique inicial no botão
+botao.addEventListener("click", adicionarNPC);

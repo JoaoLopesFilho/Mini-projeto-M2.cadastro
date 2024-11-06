@@ -12,7 +12,6 @@ body{
     background-attachment: none;                         
     height: 100%; 
     backdrop-filter: blur(2.0px);  
-    /* overflow: hidden; some com a barra de rolagem */
 }
 
 #geral{
@@ -38,9 +37,15 @@ h1{
 .resultado{
   display:flex;
   flex-direction: column;
+  gap: 24px;
+  width: 26%;
+  overflow-y: auto;
 } 
 
 .npc{
-  
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
 
 }
